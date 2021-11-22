@@ -10,13 +10,26 @@ namespace FileSend.Classes
 {
     class CryptoClass
     {
-        public byte[] EncryptedMessage { get; private set; }
-        public byte[] PureMessage { get; private set; }
+        public byte[] Key { get; set; }
 
-        private RSACryptoServiceProvider Key;
+        CryptoClass()
+        {
+            Key = GenerateKey();
+        }
 
-        CryptoClass(byte[] message, RSACryptoServiceProvider key)
-        { 
+        public byte[] Encrypt(byte[] data)
+        {
+            return null;
+        }
+
+        public byte[] Decrypt(byte[] data)
+        {
+            return null;
+        }
+
+        public byte[] GenerateKey()
+        {
+            return null;
         }
     }
 }
