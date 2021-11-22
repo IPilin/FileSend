@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSend", "FileSend\FileSend.csproj", "{6B784C94-B29E-4D36-BD7F-044235F4ADEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B784C94-B29E-4D36-BD7F-044235F4ADEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B784C94-B29E-4D36-BD7F-044235F4ADEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B784C94-B29E-4D36-BD7F-044235F4ADEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B784C94-B29E-4D36-BD7F-044235F4ADEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56C119FB-2C32-4E91-A8D9-B49E3882EC1E}
+	EndGlobalSection
+EndGlobal
