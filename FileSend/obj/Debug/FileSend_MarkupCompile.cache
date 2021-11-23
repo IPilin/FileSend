@@ -12,8 +12,13 @@ DEBUG;TRACE
 D:\Projects\FileSend\FileSend\App.xaml
 1219584333
 
+<<<<<<< HEAD
 71477560162
 13-1310406943
+=======
+7-1910067874
+13-1505183044
+>>>>>>> 0126699 (Added AES)
 MainWindow.xaml;
 
 True
