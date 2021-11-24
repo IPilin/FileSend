@@ -8,12 +8,12 @@ using System.IO;
 
 namespace FileSend.Classes
 {
-    class CryptoClass
+    public class CryptoClass
     {
         public byte[] AesKey { get; set; }
 
 
-        CryptoClass()
+        public CryptoClass()
         {
             AesKey = GenerateKey();
         }
