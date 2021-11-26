@@ -22,10 +22,10 @@ namespace Tests
 
             String message = "Hello, world";
 
-            byte[] encryptData = crypto.Encrypt(Encoding.UTF8.GetBytes("Hello, world!"));
+            byte[] encryptData = crypto.Encrypt(Encoding.UTF8.GetBytes(message));
             byte[] decryptData = crypto.Decrypt(encryptData);
 
-            Assert.AreEqual(message, Encoding.UTF8.GetString(decryptData), "Encrypt and Decrypt aren't working!");
+            Assert.AreEqual(message, Encoding.UTF8.GetString(decryptData), "Encrypt and Decrypt aren't working! EncryptData Length: " + encryptData.Length);
         }
     }
 }
