@@ -18,7 +18,7 @@ namespace Tests
 
             Assert.IsTrue(!key1.Equals(key2), "Wrong Aes keys generator!");
 
-            crypto.AesKey = key1;
+            crypto.SetAesKey(key1);
 
             String message = "Hello, world";
 
@@ -33,13 +33,12 @@ namespace Tests
         {
             CryptoClass crypto = new CryptoClass();
 
-            var key1 = crypto.GenerateKeyRsa();
-            var key2 = crypto.GenerateKeyRsa();
+            var key1 = crypto.GenerateKeyRsa(true);
+            var key2 = crypto.GenerateKeyRsa(true);
 
             Assert.IsTrue(!key1.Equals(key2), "Wrong Rsa keys generator!");
 
-            crypto.RsaPrivateKey = key1[0];
-            crypto.RsaPublicKey = key1[1];
+            crypto.SetRsaKey(key1);
 
             String message = "Hello, world";
 
