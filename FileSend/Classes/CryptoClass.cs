@@ -15,18 +15,64 @@ namespace FileSend.Classes
         RSACryptoServiceProvider Rsa;
 
         /// <summary>
-        /// Using Aes56, Rsa key length is 2048 bits
+        /// Using Aes256, Rsa key length is 2048 bits. 
+        /// Generate new keys for Aes and Rsa
         /// </summary>
         public CryptoClass()
         {
             Aes = Aes.Create();
             Aes.KeySize = 256;
 
-            GenerateKey();
-            GenerateKeyRsa(true);
+            GenerateKeyAes();
+            GenerateKeyRsa();
         }
 
-        public byte[] Encrypt(byte[] data)
+        /// <summary>
+        /// Using Aes 256, sets Aes key, generates new Rsa key with length 2048 bits
+        /// </summary>
+        /// <param name="aesKey">Aes key in byte[]</param>
+        public CryptoClass(byte[] aesKey)
+        {
+            Aes = Aes.Create();
+            Aes.KeySize = 256;
+
+            Aes.Key = aesKey;
+            GenerateKeyRsa();
+        }
+
+        /// <summary>
+        /// Using Aes256, generate new key for Aes, sets key for Rsa from XML string
+        /// </summary>
+        /// <param name="rsaKey">XML string with Rsa key</param>
+        public CryptoClass(string rsaKey)
+        {
+            Aes = Aes.Create();
+            Aes.KeySize = 256;
+
+            GenerateKeyAes();
+            Rsa.FromXmlString(rsaKey);
+        }
+
+        /// <summary>
+        /// Using Aes256,  sets Aes key, sets key for Rsa from XML string
+        /// </summary>
+        /// <param name="aesKey">Aes key in byte[]</param>
+        /// <param name="rsaKey">XML string with Rsa key</param>
+        public CryptoClass(byte[] aesKey, string rsaKey)
+        {
+            Aes = Aes.Create();
+            Aes.KeySize = 256;
+
+            Aes.Key = aesKey;
+            Rsa.FromXmlString(rsaKey);
+        }
+
+        /// <summary>
+        /// Encrypts info using Aes 256 existng key
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>Encrypted info in byte[]</returns>
+        public byte[] EncryptAes(byte[] data)
         {
             if (data == null)
                 return new byte[0];
@@ -46,11 +92,13 @@ namespace FileSend.Classes
             }
         }
 
-        public byte[] Decrypt(byte[] data)
+        /// <summary>
+        /// Decrypts using Aes256 existing key
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>Decrypted info in byte[]</returns>
+        public byte[] DecryptAes(byte[] data)
         {
-            if (data == null)
-                return new byte[0];
-
             byte[] IV = new byte[Aes.IV.Length];
             for (int i = data.Length - Aes.IV.Length; i < data.Length; i++)
             {
@@ -71,76 +119,74 @@ namespace FileSend.Classes
             }
         }
 
+        /// <summary>
+        /// Encrypt info using existing Rsa key
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>Encrypted info in byte[]</returns>
         public byte[] EncryptRsa(byte[] data)
         {
-            if (data == null)
-                return new byte[0];
-
             return Rsa.Encrypt(data, true);
         }
 
+        /// <summary>
+        /// Decrypts Rsa using existing key
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>Decrypted info in byte[]</returns>
         public byte[] DecryptRsa(byte[] data)
         {
-            if (data == null)
-                return new byte[0];
-
             return Rsa.Decrypt(data, true);
         }
 
         /// <summary>
-        /// 
+        /// Generate new Aes key in 256 bits
         /// </summary>
-        /// <returns>Aes key in byte[32]</returns>
-        public byte[] GenerateKey()
+        public void GenerateKeyAes()
         {
             Aes.GenerateKey();
-            return Aes.Key;
         }
 
         /// <summary>
-        /// 
+        /// Generates new key for Rsa with length 2048 bits
         /// </summary>
-        /// <param name="includePrivateParametrs">True for private key, false for open</param>
-        /// <returns>Rsa key in XML string</returns>
-        public string GenerateKeyRsa(bool includePrivateParametrs)
+        public void GenerateKeyRsa()
         {
             if (Rsa != null)
                 Rsa.Dispose();
 
             Rsa = new RSACryptoServiceProvider(2048);
-            return Rsa.ToXmlString(includePrivateParametrs);
         }
 
+        /// <summary>
+        /// Sets Rsa key from XML string
+        /// </summary>
+        /// <param name="key">XML string with Rsa key</param>
         public void SetRsaKey(string key)
         {
             Rsa.FromXmlString(key);
         }
 
         /// <summary>
-        /// 
+        /// Sets Aes key
         /// </summary>
         /// <param name="key">Key length should be 32 bytes</param>
-        /// <returns>0 if key changed</returns>
-        public int SetAesKey(byte[] key)
+        public void SetAesKey(byte[] key)
         {
-            if (key.Length != 32)
-                return 1;
-
             Aes.Key = key;
-            return 0;
         }
 
         /// <summary>
         /// Returns Rsa key in XML string
         /// </summary>
         /// <param name="includePrivateParametrs">True for private key, false for open</param>
-        /// <returns></returns>
-        public string RsaKey(bool includePrivateParametrs)
+        /// <returns>Rsa key in XML string</returns>
+        public string GetRsaKey(bool includePrivateParametrs)
         {
             return Rsa.ToXmlString(includePrivateParametrs);
         }
 
-        public byte[] AesKey()
+        public byte[] GetAesKey()
         {
             return Aes.Key;
         }

@@ -13,8 +13,9 @@ namespace Tests
         {
             CryptoClass crypto = new CryptoClass();
             
-            var key1 = crypto.GenerateKey();
-            var key2 = crypto.GenerateKey();
+            var key1 = crypto.GetAesKey();
+            crypto.GenerateKeyAes();
+            var key2 = crypto.GetAesKey();
 
             Assert.IsTrue(!key1.Equals(key2), "Wrong Aes keys generator!");
 
@@ -22,8 +23,8 @@ namespace Tests
 
             String message = "Hello, world";
 
-            byte[] encryptData = crypto.Encrypt(Encoding.UTF8.GetBytes(message));
-            byte[] decryptData = crypto.Decrypt(encryptData);
+            byte[] encryptData = crypto.EncryptAes(Encoding.UTF8.GetBytes(message));
+            byte[] decryptData = crypto.DecryptAes(encryptData);
 
             Assert.AreEqual(message, Encoding.UTF8.GetString(decryptData), "Aes doesn't work!");
         }
@@ -33,8 +34,9 @@ namespace Tests
         {
             CryptoClass crypto = new CryptoClass();
 
-            var key1 = crypto.GenerateKeyRsa(true);
-            var key2 = crypto.GenerateKeyRsa(true);
+            var key1 = crypto.GetRsaKey(true);
+            crypto.GenerateKeyRsa();
+            var key2 = crypto.GetRsaKey(true);
 
             Assert.IsTrue(!key1.Equals(key2), "Wrong Rsa keys generator!");
 
